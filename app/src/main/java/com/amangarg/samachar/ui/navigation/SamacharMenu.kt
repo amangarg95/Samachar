@@ -1,6 +1,6 @@
 package com.amangarg.samachar.ui.navigation
 
-enum class Menu(val route: String, val displayName: String) {
+enum class SamacharMenu(val route: String, val displayName: String) {
     TOP_HEADLINES(route = "top_headlines", displayName = "Top Headlines"),
     SEARCH(route = "search", displayName = "Search"),
     BOOKMARKS(route = "bookmarks", displayName = "Bookmarks"),

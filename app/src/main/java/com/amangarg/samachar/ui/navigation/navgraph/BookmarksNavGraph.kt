@@ -8,10 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.amangarg.samachar.ui.navigation.Menu
+import com.amangarg.samachar.ui.navigation.SamacharMenu
 
 fun NavGraphBuilder.bookmarksScreen(navController: NavHostController) {
-    composable(Menu.BOOKMARKS.route) {
+    composable(SamacharMenu.BOOKMARKS.route) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text("Bookmarks Screen")
         }

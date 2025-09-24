@@ -10,12 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.amangarg.samachar.ui.navigation.Menu
+import com.amangarg.samachar.ui.navigation.SamacharMenu
 import com.amangarg.samachar.ui.theme.VintageText
 
 @Composable
-fun MenuItem(
-    menuTab: Menu,
+fun SamacharMenuItem(
+    samacharMenuTab: SamacharMenu,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
@@ -27,7 +27,7 @@ fun MenuItem(
             .padding(8.dp)
     ) {
         Text(
-            text = menuTab.displayName.uppercase(),
+            text = samacharMenuTab.displayName.uppercase(),
             style = MaterialTheme.typography.bodyMedium.copy(
                 textDecoration = if (isSelected) TextDecoration.Underline else TextDecoration.None
             ),

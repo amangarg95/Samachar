@@ -6,11 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.amangarg.samachar.ui.composable.screen.search.SearchScreen
-import com.amangarg.samachar.ui.navigation.Menu
+import com.amangarg.samachar.ui.navigation.SamacharMenu
 import com.amangarg.samachar.ui.viewmodel.SearchViewModel
 
 fun NavGraphBuilder.searchScreen(navController: NavController) {
-    composable(Menu.SEARCH.route) {
+    composable(SamacharMenu.SEARCH.route) {
         val searchViewModel: SearchViewModel = hiltViewModel()
         SearchScreen(
             onArticleClick = { article ->

@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.amangarg.samachar.ui.activity.MainViewModel
 import com.amangarg.samachar.ui.composable.screen.topheadlines.TopHeadlinesScreen
-import com.amangarg.samachar.ui.navigation.Menu
+import com.amangarg.samachar.ui.navigation.SamacharMenu
 import com.amangarg.samachar.ui.viewmodel.TopHeadlinesViewModel
 
 fun NavGraphBuilder.topHeadlinesScreen(
@@ -15,7 +15,7 @@ fun NavGraphBuilder.topHeadlinesScreen(
     mainViewModel: MainViewModel
 ) {
     composable(
-        route = Menu.TOP_HEADLINES.route
+        route = SamacharMenu.TOP_HEADLINES.route
     ) {
         TopHeadlinesScreen(
             onArticleClick = { article ->
@@ -29,7 +29,7 @@ fun NavGraphBuilder.topHeadlinesScreen(
                 topHeadlinesViewModel.bookMarkArticle(article)
             },
             mainViewModel = mainViewModel,
-            viewModel = topHeadlinesViewModel,
+            topHeadlinesViewModel = topHeadlinesViewModel,
         )
     }
 }

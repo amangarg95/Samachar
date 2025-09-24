@@ -28,7 +28,7 @@ fun SamacharNav(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
 
-    val selectedCategory = rememberSaveable { mutableStateOf(Menu.TOP_HEADLINES) }
+    val selectedCategory = rememberSaveable { mutableStateOf(SamacharMenu.TOP_HEADLINES) }
     val uiState by mainViewModel.uiState.collectAsStateWithLifecycle()
     val topHeadlinesViewModel: TopHeadlinesViewModel = hiltViewModel()
 
@@ -49,7 +49,7 @@ fun SamacharNav(
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = Menu.TOP_HEADLINES.route,
+            startDestination = SamacharMenu.TOP_HEADLINES.route,
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()

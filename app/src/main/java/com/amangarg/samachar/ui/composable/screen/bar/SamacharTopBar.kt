@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.amangarg.samachar.ui.navigation.Menu
+import com.amangarg.samachar.ui.navigation.SamacharMenu
 
 @Composable
 fun SamacharTopBar(
     navController: NavHostController,
-    selectedCategory: Menu,
-    onMenuTabSelected: (Menu) -> Unit,
+    selectedCategory: SamacharMenu,
+    onMenuTabSelected: (SamacharMenu) -> Unit,
     region: String,
     date: String,
     language: String
@@ -29,7 +29,7 @@ fun SamacharTopBar(
             onCategorySelected = { category ->
                 onMenuTabSelected(category)
                 navController.navigate(category.route) {
-                    popUpTo(Menu.TOP_HEADLINES.route) { inclusive = false }
+                    popUpTo(SamacharMenu.TOP_HEADLINES.route) { inclusive = false }
                     launchSingleTop = true
                 }
             },

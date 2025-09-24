@@ -29,20 +29,20 @@ import com.amangarg.samachar.ui.composable.LoadingContent
 fun TopHeadlinesScreen(
     onArticleClick: (Article) -> Unit,
     onBookmarkArticle: (Article) -> Unit,
-    viewModel: TopHeadlinesViewModel,
+    topHeadlinesViewModel: TopHeadlinesViewModel,
     mainViewModel: MainViewModel
 ) {
-    val uiState: UiState<List<Article>> by viewModel.state.collectAsStateWithLifecycle()
+    val uiState: UiState<List<Article>> by topHeadlinesViewModel.state.collectAsStateWithLifecycle()
     val mainUiState = mainViewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(mainUiState.value.currentRegion) {
-        viewModel.updateCountry(mainUiState.value.currentRegion)
+        topHeadlinesViewModel.updateCountry(mainUiState.value.currentRegion)
     }
     LaunchedEffect(mainUiState.value.currentLanguage) {
-        viewModel.updateLanguage(mainUiState.value.currentLanguage)
+        topHeadlinesViewModel.updateLanguage(mainUiState.value.currentLanguage)
     }
     LaunchedEffect(mainUiState.value.currentLanguage) {
-        viewModel.updateSource(mainUiState.value.currentLanguage)
+        topHeadlinesViewModel.updateSource(mainUiState.value.currentLanguage)
     }
 
     Column(

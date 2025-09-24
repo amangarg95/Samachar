@@ -49,8 +49,6 @@ class TopHeadlinesViewModel @Inject constructor(
 
     init {
         getTopHeadlinesByCountry(DEFAULT_COUNTRY)
-
-        println("Kabita's Kitchen")
     }
 
     fun getTopHeadlinesByCountry(country: String) {
