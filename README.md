@@ -2,20 +2,23 @@
 
 **News, Vintage Style.**
 
-Samachar is a modern Android news application that brings news consumption back to its roots with a vintage newspaper-inspired design. Built using cutting-edge Android technologies, it delivers a unique reading experience while maintaining excellent performance and user experience.
+Samachar is a modern Android news application that brings news consumption back to its roots with a
+vintage newspaper-inspired design. Built using cutting-edge Android technologies, it delivers a
+unique reading experience while maintaining excellent performance and user experience.
 
-## 📱 Screenshots
+## Screenshots
 
 Here's what the app looks like in action:
 
 <div align="center">
   <img src="assets/search_screen.png" width="200" alt="Search Screen"/>
-  <img src="assets/main_screen.png" width="200" alt="Main News Screen"/> 
-  <img src="assets/filters_country.png" width="200" alt="Country Filters"/>
-  <img src="assets/filters_language.png" width="200" alt="Language Filters"/>
+  <img src="assets/main_screen.png" width="200" alt="Main News Screen"/>
   <img src="assets/article_details.png" width="200" alt="Article Detail"/>
 </div>
-
+<div align="center">
+  <img src="assets/filters_country.png" width="200" alt="Country Filters"/>
+  <img src="assets/filters_language.png" width="200" alt="Language Filters"/>
+</div>
 ## Features
 
 - **Vintage Newspaper UI**: Classic newspaper design with elegant typography and layout
@@ -29,7 +32,8 @@ Here's what the app looks like in action:
 
 ## Architecture
 
-Samachar follows **Clean Architecture** principles with **MVVM (Model-View-ViewModel)** pattern, ensuring maintainable, testable, and scalable code.
+Samachar follows **Clean Architecture** principles with **MVVM (Model-View-ViewModel)** pattern,
+ensuring maintainable, testable, and scalable code.
 
 ### Architecture Layers
 
@@ -81,6 +85,7 @@ The app uses **Model-View-ViewModel** pattern:
 ## Tech Stack
 
 ### Core Technologies
+
 - **Kotlin**: 100% Kotlin codebase
 - **Jetpack Compose**: Modern declarative UI toolkit
 - **Hilt**: Dependency injection framework
@@ -88,17 +93,20 @@ The app uses **Model-View-ViewModel** pattern:
 - **Room Database**: Local data persistence
 
 ### Networking & Data
+
 - **Retrofit**: Type-safe HTTP client
 - **OkHttp**: Efficient HTTP connections
 - **Gson**: JSON serialization/deserialization
 - **Coil**: Image loading library
 
 ### Architecture Components
+
 - **ViewModel**: UI-related data holder
 - **Navigation Component**: In-app navigation
 - **Repository Pattern**: Data access abstraction
 
 ### Development Tools
+
 - **Gradle Version Catalog**: Centralized dependency management
 - **Kotlin DSL**: Type-safe build scripts
 
@@ -135,16 +143,19 @@ app/
 ## Key Components
 
 ### Data Sources
+
 - **Remote**: NewsAPI integration for fetching latest news
 - **Local**: Room database for caching and bookmarks
 
 ### Use Cases
+
 - Get top headlines
 - Search news articles
 - Manage bookmarks
 - Filter by region/language
 
 ### UI Screens
+
 - News feed with vintage styling
 - Advanced search interface
 - Filter selection screens
@@ -203,4 +214,5 @@ Created with ❤️ by [Aman Garg](https://github.com/amangarg95)
 
 ---
 
-*Samachar brings the charm of vintage newspapers to the digital age while leveraging modern Android development practices.*
+*Samachar brings the charm of vintage newspapers to the digital age while leveraging modern Android
+development practices.*
