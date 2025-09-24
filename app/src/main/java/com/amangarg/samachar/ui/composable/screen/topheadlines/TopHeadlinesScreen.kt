@@ -15,13 +15,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amangarg.samachar.domain.model.Article
 import com.amangarg.samachar.ui.UiState
-import com.amangarg.samachar.ui.UiState.*
+import com.amangarg.samachar.ui.UiState.Error
+import com.amangarg.samachar.ui.UiState.Idle
+import com.amangarg.samachar.ui.UiState.Loading
+import com.amangarg.samachar.ui.UiState.Success
 import com.amangarg.samachar.ui.activity.MainViewModel
+import com.amangarg.samachar.ui.composable.ErrorContent
+import com.amangarg.samachar.ui.composable.LoadingContent
 import com.amangarg.samachar.ui.composable.screen.articlelist.ArticleList
 import com.amangarg.samachar.ui.theme.VintageBackground
 import com.amangarg.samachar.ui.viewmodel.TopHeadlinesViewModel
-import com.amangarg.samachar.ui.composable.ErrorContent
-import com.amangarg.samachar.ui.composable.LoadingContent
 
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,14 +38,10 @@ fun TopHeadlinesScreen(
     val uiState: UiState<List<Article>> by topHeadlinesViewModel.state.collectAsStateWithLifecycle()
     val mainUiState = mainViewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(mainUiState.value.currentRegion) {
-        topHeadlinesViewModel.updateCountry(mainUiState.value.currentRegion)
-    }
-    LaunchedEffect(mainUiState.value.currentLanguage) {
-        topHeadlinesViewModel.updateLanguage(mainUiState.value.currentLanguage)
-    }
-    LaunchedEffect(mainUiState.value.currentLanguage) {
-        topHeadlinesViewModel.updateSource(mainUiState.value.currentLanguage)
+    LaunchedEffect(mainUiState.value.currentRegion, mainUiState.value.currentLanguage) {
+        topHeadlinesViewModel.getTopHeadlinesByCountry(mainUiState.value.currentRegion)
+        // Or based on language:
+        // topHeadlinesViewModel.getTopHeadlinesByLanguage(mainUiState.currentLanguage)
     }
 
     Column(
@@ -73,7 +72,7 @@ fun TopHeadlinesScreen(
                     ErrorContent(
                         message = (uiState as Error).message,
                         onRetry = {
-//                            viewModel.getTopHeadlinesByCountry("")
+
                         }
                     )
                 }

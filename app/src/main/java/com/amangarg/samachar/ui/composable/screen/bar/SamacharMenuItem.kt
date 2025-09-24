@@ -23,8 +23,6 @@ fun SamacharMenuItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-
-            .padding(8.dp)
     ) {
         Text(
             text = samacharMenuTab.displayName.uppercase(),

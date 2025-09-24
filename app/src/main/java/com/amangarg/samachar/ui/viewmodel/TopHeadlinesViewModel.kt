@@ -31,14 +31,6 @@ class TopHeadlinesViewModel @Inject constructor(
     private val _state = MutableStateFlow<UiState<List<Article>>>(UiState.Idle)
     val state: StateFlow<UiState<List<Article>>> = _state
 
-    private val filters = MutableStateFlow(
-        Filters(
-            country = DEFAULT_COUNTRY,
-            language = DEFAULT_LANGUAGE,
-            source = ""
-        )
-    )
-
     private var currentPage = 1
     private val pageSize = 20
 
@@ -131,25 +123,7 @@ class TopHeadlinesViewModel @Inject constructor(
     }
 
     fun bookMarkArticle(article: Article) {
-        println("HAHAHA" + article.title)
+
     }
 
-    fun updateCountry(country: String) {
-        filters.update { it.copy(country = country) }
-    }
-
-    fun updateLanguage(language: String) {
-        filters.update { it.copy(language = language) }
-    }
-
-    fun updateSource(source: String) {
-        filters.update { it.copy(source = source) }
-    }
-
-    // Helper data class
-    private data class Filters(
-        val country: String,
-        val language: String,
-        val source: String
-    )
 }

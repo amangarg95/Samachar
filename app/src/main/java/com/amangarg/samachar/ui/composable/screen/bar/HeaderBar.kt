@@ -40,7 +40,7 @@ fun HeaderBar(
             style = MaterialTheme.typography.headlineLarge.copy(
                 fontWeight = FontWeight.Thin
             ),
-            color = Color.Black
+            color = VintageText
         )
         HorizontalDivider(
             modifier = Modifier.padding(bottom = dimensions.dividerSpacingSmall),

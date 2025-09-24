@@ -16,8 +16,8 @@ class MainViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(
         MainUiState(
-            currentRegion = AppConstants.DEFAULT_COUNTRY_NAME,
-            currentLanguage = AppConstants.DEFAULT_LANGUAGE_NAME,
+            currentRegion = AppConstants.DEFAULT_COUNTRY.uppercase(),
+            currentLanguage = AppConstants.DEFAULT_LANGUAGE.uppercase(),
             date = getFormattedCurrentDateUseCase()
         )
     )

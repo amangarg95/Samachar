@@ -38,7 +38,7 @@ fun FilterBar(
                 .padding(dimensions.textPadding),
             text = title,
             style = MaterialTheme.typography.bodySmall,
-            color = Color.Black,
+            color = VintageText,
             textAlign = TextAlign.Center
         )
 

@@ -1,33 +1,36 @@
 package com.amangarg.samachar.ui.navigation.navgraph
 
-import androidx.compose.runtime.Composable
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.amangarg.samachar.ui.activity.MainViewModel
 import com.amangarg.samachar.ui.composable.screen.filters.FiltersScreen
 import com.amangarg.samachar.ui.navigation.SamacharMenu
+import com.amangarg.samachar.ui.viewmodel.FiltersScreenViewModel
 import com.amangarg.samachar.util.AppConstants
 
 fun NavGraphBuilder.filtersScreen(navController: NavHostController, mainViewModel: MainViewModel) {
     composable(SamacharMenu.FILTERS.route) {
+        val filtersViewModel: FiltersScreenViewModel = hiltViewModel()
         FiltersScreen(
             countryList = AppConstants.countryList,
             languageList = AppConstants.languageList,
             onCountryToggle = {
-                mainViewModel.updateRegion(it.name.uppercase())
+                mainViewModel.updateRegion(it.code.uppercase())
                 navController.navigate(SamacharMenu.TOP_HEADLINES.route) {
                     popUpTo(SamacharMenu.TOP_HEADLINES.route) { inclusive = true }
                     launchSingleTop = true
                 }
             },
             onLanguageToggle = {
-                mainViewModel.updateLanguage(it.name.uppercase())
+                mainViewModel.updateLanguage(it.code.uppercase())
                 navController.navigate(SamacharMenu.TOP_HEADLINES.route) {
                     popUpTo(SamacharMenu.TOP_HEADLINES.route) { inclusive = true }
                     launchSingleTop = true
                 }
-            }
+            },
+            filtersViewModel = filtersViewModel
         )
     }
 }

@@ -1,6 +1,8 @@
 package com.amangarg.samachar.ui.composable.screen.bar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
@@ -19,24 +21,19 @@ fun MenuBar(
     onCategorySelected: (SamacharMenu) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    LazyRow(
         modifier = modifier
-            .wrapContentSize(),
-        colors = CardDefaults.cardColors(
-            containerColor = VintageCard
-        )
+            .padding(12.dp)
+            .background(VintageCard)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        LazyRow(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(SamacharMenu.entries.toTypedArray()) { menuTabItem ->
-                SamacharMenuItem(
-                    samacharMenuTab = menuTabItem,
-                    isSelected = menuTabItem == selectedCategory,
-                    onClick = { onCategorySelected(menuTabItem) }
-                )
-            }
+        items(SamacharMenu.entries.dropLast(1).toTypedArray()) { menuTabItem ->
+            SamacharMenuItem(
+                samacharMenuTab = menuTabItem,
+                isSelected = menuTabItem == selectedCategory,
+                onClick = { onCategorySelected(menuTabItem) }
+            )
         }
     }
 }
