@@ -1,4 +1,4 @@
-package com.amangarg.samachar
+package com.amangarg.samachar.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
