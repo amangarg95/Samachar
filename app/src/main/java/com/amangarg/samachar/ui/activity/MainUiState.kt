@@ -1,6 +1,6 @@
 package com.amangarg.samachar.ui.activity
 
-import com.amangarg.samachar.util.AppConstants
+import com.amangarg.samachar.common.util.AppConstants
 
 data class MainUiState(
     val currentRegion: String = AppConstants.DEFAULT_COUNTRY,

@@ -1,6 +1,6 @@
 package com.amangarg.samachar.di.module
 
-import com.amangarg.samachar.util.DefaultDispatcherProvider
+import com.amangarg.samachar.common.dispatcher.DefaultDispatcherProvider
 import com.amangarg.samacharam.util.DispatcherProvider
 import dagger.Module
 import dagger.Provides

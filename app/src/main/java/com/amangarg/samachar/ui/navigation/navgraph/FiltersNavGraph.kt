@@ -8,7 +8,7 @@ import com.amangarg.samachar.ui.activity.MainViewModel
 import com.amangarg.samachar.ui.composable.screen.filters.FiltersScreen
 import com.amangarg.samachar.ui.navigation.SamacharMenu
 import com.amangarg.samachar.ui.viewmodel.FiltersScreenViewModel
-import com.amangarg.samachar.util.AppConstants
+import com.amangarg.samachar.common.util.AppConstants
 
 fun NavGraphBuilder.filtersScreen(navController: NavHostController, mainViewModel: MainViewModel) {
     composable(SamacharMenu.FILTERS.route) {

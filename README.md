@@ -11,14 +11,12 @@ unique reading experience while maintaining excellent performance and user exper
 Here's what the app looks like in action:
 
 <div align="center">
-  <img src="assets/main_screen.png" width="300" alt="Main News Screen"/>
-  <img src="assets/article_details.png" width="300" alt="Article Detail"/>
-  <img src="assets/search_screen.png" width="300" alt="Search Screen"/>
-</div>
-<div align="center">
-  <img src="assets/filters_country.png" width="300" alt="Country Filters"/>
-  <img src="assets/filters_language.png" width="300" alt="Language Filters"/>
-  <img src="assets/filters_source.png" width="300" alt="Source Filters"/>
+  <img src="assets/main_screen.png" width="200" alt="Main News Screen"/>
+  <img src="assets/article_details.png" width="200" alt="Article Detail"/>
+  <img src="assets/search_screen.png" width="200" alt="Search Screen"/>
+  <img src="assets/filters_country.png" width="200" alt="Country Filters"/>
+  <img src="assets/filters_language.png" width="200" alt="Language Filters"/>
+  <img src="assets/filters_source.png" width="200" alt="Source Filters"/>
 </div>
 
 ## Features

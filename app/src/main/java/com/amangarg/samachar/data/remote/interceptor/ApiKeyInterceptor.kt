@@ -1,7 +1,7 @@
 package com.amangarg.samachar.data.remote.interceptor
 
 import com.amangarg.samachar.di.qualifier.ApiKey
-import com.amangarg.samachar.util.NetworkConstants.X_API_KEY
+import com.amangarg.samachar.common.util.NetworkConstants.X_API_KEY
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

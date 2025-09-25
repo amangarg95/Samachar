@@ -2,7 +2,7 @@ package com.amangarg.samachar.ui.activity
 
 import androidx.lifecycle.ViewModel
 import com.amangarg.samachar.domain.usecase.GetFormattedCurrentDateUseCase
-import com.amangarg.samachar.util.AppConstants
+import com.amangarg.samachar.common.util.AppConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

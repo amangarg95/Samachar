@@ -1,4 +1,4 @@
-package com.amangarg.samachar.util
+package com.amangarg.samachar.common.util
 
 import com.amangarg.samachar.domain.model.Country
 import com.amangarg.samachar.domain.model.Language
