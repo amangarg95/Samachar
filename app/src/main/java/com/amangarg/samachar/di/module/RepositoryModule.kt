@@ -1,5 +1,6 @@
 package com.amangarg.samachar.di.module
 
+import com.amangarg.samachar.data.local.database.DatabaseService
 import com.amangarg.samachar.data.remote.service.NetworkService
 import com.amangarg.samachar.data.repository.NewsRepositoryImpl
 import com.amangarg.samachar.domain.repository.NewsRepository
@@ -16,8 +17,12 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideNewsRepository(
-        networkService: NetworkService
+        networkService: NetworkService,
+        databaseService: DatabaseService
     ): NewsRepository {
-        return NewsRepositoryImpl(networkService = networkService)
+        return NewsRepositoryImpl(
+            networkService = networkService,
+            databaseService = databaseService
+        )
     }
 }

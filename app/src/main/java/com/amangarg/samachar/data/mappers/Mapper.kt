@@ -15,19 +15,15 @@ fun ArticleDto.toDomain(): Article {
         url = url.orEmpty(),
         imageUrl = imageUrl.orEmpty(),
         publishedAt = publishedAt.orEmpty(),
-        content = content.orEmpty()
+        content = content.orEmpty(),
+        isBookmarked = false,
     )
 }
 
 fun SourceDto.toDomain(): Source {
     return Source(
         id = id.orEmpty(),
-        name = name.orEmpty(),
-        description = description.orEmpty(),
-        url = url.orEmpty(),
-        category = category.orEmpty(),
-        language = language.orEmpty(),
-        country = country.orEmpty()
+        name = name.orEmpty()
     )
 }
 

@@ -8,5 +8,6 @@ data class Article(
     val url: String? = null,
     val imageUrl: String? = null,
     val publishedAt: String? = null,
-    val content: String? = null
+    val content: String? = null,
+    val isBookmarked: Boolean
 )

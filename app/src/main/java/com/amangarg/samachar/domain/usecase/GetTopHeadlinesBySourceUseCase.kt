@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetTopHeadlinesBySourceUseCase @Inject constructor(
     private val repository: NewsRepository
 ) {
-    operator fun invoke(
+    suspend operator fun invoke(
         source: String,
         pageNum: Int = DEFAULT_PAGE_NUM,
         pageSize: Int = DEFAULT_PAGE_SIZE

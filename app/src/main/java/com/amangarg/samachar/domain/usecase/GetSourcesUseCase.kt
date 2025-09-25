@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetSourcesUseCase @Inject constructor(
     private val repository: NewsRepository
 ) {
-    operator fun invoke(): Flow<List<Source>> {
+    suspend operator fun invoke(): Flow<List<Source>> {
         return repository.getSources()
     }
 }

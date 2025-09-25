@@ -1,72 +1,163 @@
 package com.amangarg.samachar.data.repository
 
+import com.amangarg.samachar.common.util.toDomain
+import com.amangarg.samachar.common.util.toEntity
+import com.amangarg.samachar.data.local.database.DatabaseService
 import com.amangarg.samachar.data.mappers.toDomain
 import com.amangarg.samachar.data.remote.service.NetworkService
+import com.amangarg.samachar.domain.model.Article
+import com.amangarg.samachar.domain.model.Source
 import com.amangarg.samachar.domain.repository.NewsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class NewsRepositoryImpl @Inject constructor(
-    private val networkService: NetworkService
+    private val networkService: NetworkService,
+    private val databaseService: DatabaseService
 ) : NewsRepository {
-
-    override fun searchNews(
+    override suspend fun searchNews(
         query: String,
         pageNum: Int,
         pageSize: Int
-    ) = flow {
-        emit(
-            networkService.searchNews(
-                searchQuery = query
-            ).articles.map {
-                it.toDomain()
+    ): Flow<List<Article>> = flow {
+        try {
+            val networkArticles = networkService.searchNews(searchQuery = query)
+                .articles
+                .map { it.toDomain() }
+            val articleEntities = networkArticles.map {
+                it.toEntity().copy(isCached = true)
             }
-        )
+            databaseService.cacheArticles(articleEntities)
+            emit(networkArticles)
+        } catch (_: Exception) {
+            val cachedArticles = databaseService.getCachedArticles()
+                .map { articles -> articles.map { it.toDomain() } }
+                .first()
+
+            emit(cachedArticles)
+        }
     }
 
-    override fun getTopHeadlinesByCountry(
+    override suspend fun getTopHeadlinesByCountry(
         country: String,
         pageNum: Int,
         pageSize: Int
-    ) = flow {
-        emit(
-            networkService.getTopHeadlinesByCountry(country).articles.map {
-                it.toDomain()
+    ): Flow<List<Article>> = flow {
+        try {
+            val networkArticles = networkService.getTopHeadlinesByCountry(country)
+                .articles
+                .map { it.toDomain() }
+            val articleEntities = networkArticles.map {
+                it.toEntity().copy(isCached = true)
             }
-        )
+            databaseService.refreshArticleCache(articleEntities)
+            emit(networkArticles)
+        } catch (e: Exception) {
+            val cachedArticles = databaseService.getCachedArticles()
+                .map { articles -> articles.map { it.toDomain() } }
+            emit(cachedArticles.first())
+        }
     }
 
-    override fun getTopHeadlinesBySource(
+    override suspend fun getTopHeadlinesBySource(
         source: String,
         pageNum: Int,
         pageSize: Int
-    ) = flow {
-        emit(
-            networkService.getTopHeadlinesBySource(source).articles.map {
-                it.toDomain()
+    ): Flow<List<Article>> = flow {
+        try {
+            val networkArticles = networkService.getTopHeadlinesBySource(source)
+                .articles
+                .map { it.toDomain() }
+
+            val articleEntities = networkArticles.map {
+                it.toEntity().copy(isCached = true)
             }
-        )
+            databaseService.cacheArticles(articleEntities)
+
+            emit(networkArticles)
+        } catch (e: Exception) {
+            val cachedArticles = databaseService.getCachedArticles()
+                .map { articles ->
+                    articles.map { it.toDomain() }.filter { it.source?.name == source }
+                }
+            emit(cachedArticles.first())
+
+        }
     }
 
-    override fun getTopHeadlinesByLanguage(
+    override suspend fun getTopHeadlinesByLanguage(
         language: String,
         pageNum: Int,
         pageSize: Int
-    ) = flow {
-        emit(
-            networkService.getTopHeadlinesByLanguage(language).articles.map {
-                it.toDomain()
+    ): Flow<List<Article>> = flow {
+        try {
+            val networkArticles = networkService.getTopHeadlinesByLanguage(language)
+                .articles
+                .map { it.toDomain() }
+
+            val articleEntities = networkArticles.map {
+                it.toEntity().copy(isCached = true)
             }
-        )
+            databaseService.cacheArticles(articleEntities)
+
+            emit(networkArticles)
+        } catch (e: Exception) {
+            val cachedArticles = databaseService.getCachedArticles()
+                .map { articles ->
+                    articles.map { it.toDomain() }
+                }
+            emit(cachedArticles.first())
+
+        }
     }
 
-    override fun getSources() = flow {
-        emit(
-            networkService.getSources().sources.map {
-                it.toDomain()
-            }
-        )
+    override suspend fun getSources(): Flow<List<Source>> = flow {
+        try {
+            val sources = networkService.getSources().sources.map { it.toDomain() }
+            emit(sources)
+        } catch (e: Exception) {
+            emit(emptyList())
+        }
     }
+
+    override suspend fun getCachedArticles(): Flow<List<Article>> =
+        databaseService.getCachedArticles().map { articles ->
+            articles.map { it.toDomain() }
+        }
+
+    override suspend fun getBookmarkedArticles(): Flow<List<Article>> =
+        databaseService.getBookmarkedArticles().map { articles ->
+            articles.map { it.toDomain() }
+        }
+
+    override suspend fun bookmarkArticle(article: Article) {
+        val articleEntity = article.toEntity().copy(isBookmarked = true)
+        databaseService.saveArticle(articleEntity)
+    }
+
+    override suspend fun unbookmarkArticle(article: Article) {
+        val articleEntity = article.toEntity().copy(isBookmarked = false)
+        databaseService.updateArticle(articleEntity)
+    }
+
+    override suspend fun deleteArticle(article: Article) {
+        databaseService.deleteArticle(article.toEntity())
+    }
+
+    override suspend fun clearCache() {
+        databaseService.clearCache()
+    }
+
+    override suspend fun getBookmarkedCount(): Int =
+        databaseService.getBookmarkedCount()
+
+    override suspend fun getCachedCount(): Int =
+        databaseService.getCachedCount()
 }
+
+
