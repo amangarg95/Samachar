@@ -13,7 +13,7 @@ fun ArticleDto.toDomain(): Article {
         title = title.orEmpty(),
         description = description.orEmpty(),
         url = url.orEmpty(),
-        imageUrl = imageUrl.orEmpty(),
+        imageUrl = urlToImage.orEmpty(),
         publishedAt = publishedAt.orEmpty(),
         content = content.orEmpty(),
         isBookmarked = false,
