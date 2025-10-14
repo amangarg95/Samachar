@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,11 +24,15 @@ class MainViewModel @Inject constructor(
     )
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
-    fun updateRegion(region: String) {
-        _uiState.value = _uiState.value.copy(currentRegion = region)
+    fun setRegion(region: String) {
+        val normalized = region.trim().uppercase()
+        if (normalized == _uiState.value.currentRegion) return
+        _uiState.update { it.copy(currentRegion = normalized) }
     }
 
-    fun updateLanguage(language: String) {
-        _uiState.value = _uiState.value.copy(currentLanguage = language)
+    fun setLanguage(language: String) {
+        val normalized = language.trim().uppercase()
+        if (normalized == _uiState.value.currentLanguage) return
+        _uiState.update { it.copy(currentLanguage = normalized) }
     }
 }

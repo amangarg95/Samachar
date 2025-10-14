@@ -41,7 +41,7 @@ fun ArticleList(
                 val article = articles[0]
 
                 Column {
-                    ArticleCard(
+                    ArticleItem(
                         article = article,
                         onArticleClick = { onArticleClick(article) },
                         onBookmarkArticle = { onBookmarkArticle(article) },
@@ -59,7 +59,7 @@ fun ArticleList(
             items = articles.drop(1),
             key = { it.url ?: it.title ?: it.hashCode() }
         ) { article ->
-            ArticleCard(
+            ArticleItem(
                 article = article,
                 onArticleClick = { onArticleClick(article) },
                 onBookmarkArticle = { onBookmarkArticle(article) },

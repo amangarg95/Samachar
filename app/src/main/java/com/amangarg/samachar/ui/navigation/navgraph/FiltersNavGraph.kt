@@ -17,14 +17,14 @@ fun NavGraphBuilder.filtersScreen(navController: NavHostController, mainViewMode
             countryList = AppConstants.countryList,
             languageList = AppConstants.languageList,
             onCountryToggle = {
-                mainViewModel.updateRegion(it.code.uppercase())
+                mainViewModel.setRegion(it.code.uppercase())
                 navController.navigate(SamacharMenu.TOP_HEADLINES.route) {
                     popUpTo(SamacharMenu.TOP_HEADLINES.route) { inclusive = true }
                     launchSingleTop = true
                 }
             },
             onLanguageToggle = {
-                mainViewModel.updateLanguage(it.code.uppercase())
+                mainViewModel.setLanguage(it.code.uppercase())
                 navController.navigate(SamacharMenu.TOP_HEADLINES.route) {
                     popUpTo(SamacharMenu.TOP_HEADLINES.route) { inclusive = true }
                     launchSingleTop = true
