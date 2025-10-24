@@ -2,6 +2,7 @@ package com.amangarg.samachar.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amangarg.samachar.common.util.ResultWrapper
 import com.amangarg.samachar.domain.model.Article
 import com.amangarg.samachar.domain.usecase.SearchNewsUseCase
 import com.amangarg.samachar.ui.UiState
@@ -37,16 +38,22 @@ class SearchViewModel @Inject constructor(
         _searchState.value = UiState.Loading
 
         viewModelScope.launch {
-            try {
-                searchNewsUseCase(query).collect { articles ->
-                    if (articles.isEmpty()) {
-                        _searchState.value = UiState.Error("No results found. Try searching something else.")
-                    } else {
-                        _searchState.value = UiState.Success(articles)
+            searchNewsUseCase(query).collect { result ->
+
+                when (result) {
+                    is ResultWrapper.Success -> {
+                        _searchState.value = UiState.Success(result.value)
+                    }
+
+                    is ResultWrapper.GenericError -> {
+                        _searchState.value =
+                            UiState.Error("No results found. Try searching something else.")
+                    }
+
+                    ResultWrapper.NetworkError -> {
+                        _searchState.value = UiState.Error("Something went wrong")
                     }
                 }
-            } catch (e: Exception) {
-                _searchState.value = UiState.Error(e.message ?: "Something went wrong")
             }
         }
     }
@@ -57,3 +64,4 @@ class SearchViewModel @Inject constructor(
         _hasSearched.value = false
     }
 }
+

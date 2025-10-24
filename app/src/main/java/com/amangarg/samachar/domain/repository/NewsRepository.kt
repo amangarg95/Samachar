@@ -1,5 +1,6 @@
 package com.amangarg.samachar.domain.repository
 
+import com.amangarg.samachar.common.util.ResultWrapper
 import com.amangarg.samachar.domain.model.Article
 import com.amangarg.samachar.domain.model.Source
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +11,7 @@ interface NewsRepository {
         query: String,
         pageNum: Int,
         pageSize: Int
-    ): Flow<List<Article>>
+    ): Flow<ResultWrapper<List<Article>>>
 
     suspend fun getTopHeadlinesByCountry(
         country: String,

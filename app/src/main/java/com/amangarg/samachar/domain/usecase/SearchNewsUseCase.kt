@@ -4,6 +4,7 @@ import com.amangarg.samachar.domain.model.Article
 import com.amangarg.samachar.domain.repository.NewsRepository
 import com.amangarg.samachar.common.util.AppConstants.DEFAULT_PAGE_NUM
 import com.amangarg.samachar.common.util.AppConstants.DEFAULT_PAGE_SIZE
+import com.amangarg.samachar.common.util.ResultWrapper
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class SearchNewsUseCase @Inject constructor(
         query: String,
         pageNum: Int = DEFAULT_PAGE_NUM,
         pageSize: Int = DEFAULT_PAGE_SIZE
-    ): Flow<List<Article>> {
+    ): Flow<ResultWrapper<List<Article>>> {
         return repository.searchNews(query = query, pageNum = pageNum, pageSize = pageSize)
     }
 }

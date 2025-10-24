@@ -1,5 +1,7 @@
 package com.amangarg.samachar.data.repository
 
+import com.amangarg.samachar.common.util.ResultWrapper
+import com.amangarg.samachar.common.util.safeApiCall
 import com.amangarg.samachar.common.util.toDomain
 import com.amangarg.samachar.common.util.toEntity
 import com.amangarg.samachar.data.local.database.DatabaseService
@@ -8,9 +10,12 @@ import com.amangarg.samachar.data.remote.service.NetworkService
 import com.amangarg.samachar.domain.model.Article
 import com.amangarg.samachar.domain.model.Source
 import com.amangarg.samachar.domain.repository.NewsRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,28 +25,31 @@ class NewsRepositoryImpl @Inject constructor(
     private val networkService: NetworkService,
     private val databaseService: DatabaseService
 ) : NewsRepository {
+
     override suspend fun searchNews(
         query: String,
         pageNum: Int,
         pageSize: Int
-    ): Flow<List<Article>> = flow {
-        try {
-            val networkArticles = networkService.searchNews(searchQuery = query)
-                .articles
-                .map { it.toDomain() }
-            val articleEntities = networkArticles.map {
-                it.toEntity().copy(isCached = true)
-            }
-            databaseService.cacheArticles(articleEntities)
-            emit(networkArticles)
-        } catch (_: Exception) {
-            val cachedArticles = databaseService.getCachedArticles()
-                .map { articles -> articles.map { it.toDomain() } }
-                .first()
-
-            emit(cachedArticles)
+    ): Flow<ResultWrapper<List<Article>>> = flow<ResultWrapper<List<Article>>> {
+        val result = safeApiCall {
+            networkService.searchNews(searchQuery = query).articles.map { it.toDomain() }
         }
-    }
+        when (result) {
+            is ResultWrapper.Success -> {
+                val articleEntities = result.value.map { it.toEntity().copy(isCached = true) }
+                databaseService.cacheArticles(articleEntities)
+                emit(ResultWrapper.Success(result.value))
+            }
+            is ResultWrapper.NetworkError, is ResultWrapper.GenericError -> {
+                val cachedArticles = databaseService.getCachedArticles()
+                    .map { entities -> entities.map { it.toDomain() } }
+                    .first()
+                emit(ResultWrapper.Success(cachedArticles))
+            }
+        }
+    }.catch { e ->
+        emit(ResultWrapper.GenericError(null, e.localizedMessage))
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun getTopHeadlinesByCountry(
         country: String,
