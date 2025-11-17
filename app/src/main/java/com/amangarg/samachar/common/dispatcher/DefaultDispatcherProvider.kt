@@ -1,6 +1,5 @@
 package com.amangarg.samachar.common.dispatcher
 
-import com.amangarg.samacharam.util.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

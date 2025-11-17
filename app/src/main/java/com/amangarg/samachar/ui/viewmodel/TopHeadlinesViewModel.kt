@@ -7,7 +7,7 @@ import com.amangarg.samachar.domain.usecase.GetTopHeadlinesByCountryUseCase
 import com.amangarg.samachar.domain.usecase.GetTopHeadlinesByLanguageUseCase
 import com.amangarg.samachar.ui.UiState
 import com.amangarg.samachar.common.util.AppConstants.DEFAULT_COUNTRY
-import com.amangarg.samacharam.util.DispatcherProvider
+import com.amangarg.samachar.common.dispatcher.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

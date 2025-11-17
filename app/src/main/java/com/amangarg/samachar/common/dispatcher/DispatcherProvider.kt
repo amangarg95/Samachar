@@ -1,4 +1,4 @@
-package com.amangarg.samacharam.util
+package com.amangarg.samachar.common.dispatcher
 
 import kotlinx.coroutines.CoroutineDispatcher
 
